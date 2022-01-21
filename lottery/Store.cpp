@@ -100,16 +100,9 @@ auto createQtDatabase(const QString& hostname) -> QSqlDatabase
     db.setUserName("oleg");
     db.setPassword("oleg_2874c71881c3682f215be2f23e8173c4");
 
-    // retry connection 12 times for a total of a minute
-    for (size_t i = 0; i < 12; ++i)
-    {
-        if (db.open())
-        {
-            return db;
-        }
-        QThread::sleep(5);
-    }
-    throwSqlError(db.lastError());
+    throwDbErrWhen(not db.open(), db);
+
+    return db;
 }
 
 auto initDbTables(QSqlDatabase& db) -> QSqlDatabase&

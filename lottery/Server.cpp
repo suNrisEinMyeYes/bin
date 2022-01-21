@@ -220,9 +220,9 @@ void ClientHandler::userTicket(QByteArray&& data)
     m_state = State::UserAwaitCommand;
 
     let words = data.trimmed().split(' ');
-    if (words.length() < Ticket::DataSize)
+    if (words.length() != Ticket::DataSize)
     {
-        m_socket->write("Ticket is 32 small numbers");
+        m_socket->write("Invalid ticket size");
         return;
     }
 
