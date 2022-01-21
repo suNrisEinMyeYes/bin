@@ -1,0 +1,22 @@
+--- ../Store.cpp	2021-10-13 19:57:01.652801040 +0700
++++ Store.cpp	2021-10-19 18:11:08.374822097 +0700
+@@ -100,9 +100,16 @@
+     db.setUserName("oleg");
+     db.setPassword("oleg_2874c71881c3682f215be2f23e8173c4");
+ 
+-    throwDbErrWhen(not db.open(), db);
+-
+-    return db;
++    // retry connection 12 times for a total of a minute
++    for (size_t i = 0; i < 12; ++i)
++    {
++        if (db.open())
++        {
++            return db;
++        }
++        QThread::sleep(5);
++    }
++    throwSqlError(db.lastError());
+ }
+ 
+ auto initDbTables(QSqlDatabase& db) -> QSqlDatabase&

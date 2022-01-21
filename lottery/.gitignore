@@ -1,0 +1,10 @@
+.mypy_cache/
+build*/
+compile_commands.json
+__pycache__/
+storage-*-*.dump
+oleg-service.pro.user
+pg_data/
+*.tgz
+*.tar.gz
+mysql-data/

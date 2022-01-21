@@ -1,0 +1,17 @@
+version: '3'
+services:
+  armsrace:
+    build: .
+    ports:
+      - "5001:5001"
+      - "5002:5002"
+  mysql:
+    image: "mysql:8.0"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: olegdb
+      MYSQL_USER: oleg
+      MYSQL_PASSWORD: oleg_2874c71881c3682f215be2f23e8173c4
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
